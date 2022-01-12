@@ -2,7 +2,7 @@
  * Define algumas configurações iniciais para o app.
  */
 
- :root {
+:root {
     --font-family: sans-serif;
     --font-size: 16px;
     --bg-color: rgb(0, 14, 36);
@@ -13,7 +13,7 @@
 
 /* Reset do CSS
  * Faz com que a página apareça sempre igual em qualquer navegador moderno.
- /* */ */
+ */
 
 * {
     /* Margin e padding não interferem em width e height */
@@ -21,7 +21,7 @@
     /* Remover bordas de elementos selecionados */
     outline: none;
     /* Aplica atraso em efeitos de transição */
-    transition: .1s;
+    /* transition: .1s; */
 }
 
 html, body, header, footer, nav, main, article, aside, p, h1, h2, h3, h4, h5, h6, blockquote {
@@ -115,13 +115,16 @@ div.header h1 {
     color: var(--bg-color);
     padding: 0;
     font-size: 1.5rem;
+    color: darkgreen;
 }
 
-#menu-toggle {
-    margin-left: auto;
-    padding: .8rem;
+#menuToggle {
+    margin: auto .5rem auto auto;
+    /* Conserta bug da rolagem vertical durante a animação. */
     font-size: 1.5rem;
     color: white;
+    transition: .2s;
+    text-decoration: none;
 }
 
 /* Responsividade do cabeçalho
@@ -143,16 +146,12 @@ div.header h1 {
 @media (min-width: 768px) {
 
     /* Oculta botão do menu em telas maiores */
-    #menu-toggle {
+    #menuToggle {
         display: none;
     }
 }
 
 /* Menu principal <nav> */
-
-.wrap>nav {
-    display: block;
-}
 
 div.nav {
     background: #044768;
@@ -164,6 +163,8 @@ div.nav {
     min-width: 0;
     box-shadow: -4px 6px 5px 0px #000;
     border-bottom-left-radius: .35rem;
+    transition: .1s; /* Tempo da animação */
+    transform-origin: right top; /* Ponto de partida da animação */
 }
 
 div.nav a {
@@ -188,12 +189,24 @@ div.nav a i {
     margin-right: .65rem;
 }
 
+/* Animação que exibe o menu principal */
+.menu-opened {
+    transform: scale(1);
+}
+
+/* Animação que oculta o menu princial */
+.menu-closed {
+    transform: scale(0);
+}
+
 /* Modifica o menu em resoluções maiores */
 
 @media (min-width: 768px) {
 
     .wrap>nav {
         background: #04476891;
+        display: block;
+        padding: 1px;
     }
 
     div.nav {
@@ -205,6 +218,7 @@ div.nav a i {
         box-shadow: none;
         border-radius: 0;
         justify-content: flex-end;
+        transform: scale(1); /* Exibe o menu principal */
     }
 
     div.nav a:first-child {
@@ -247,7 +261,7 @@ div.footer-top {
 
 div.footer-top a {
     font-size: 1.5rem;
-    padding: .25rem;
+    padding: .5rem;
     color: white;
 }
 
