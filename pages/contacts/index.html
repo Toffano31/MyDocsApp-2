@@ -1,3 +1,45 @@
-<h2>Faça contato</h2>
-<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim sunt iure magnam, illo nemo dolores tenetur architecto pariatur corporis tempore, velit in cumque explicabo non impedit vero ducimus maxime perferendis!</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto labore, numquam, incidunt in quae quibusdam nostrum illum laboriosam distinctio repudiandae qui inventore doloremque! Facilis id unde harum ipsa non. Molestias.</p>
+<article>
+
+    <h2>Faça contato</h2>
+
+    <p>Preencha os campos abaixo para entrar em contato com a equipe do aplicativo.</p>
+
+    <p class="red center small">Todos os campos são obrigatórios.</p>
+
+    <form action="#" id="contact" name="contact" method="post">
+
+        <p>
+            <label for="contactName">Seu nome:</label>
+            <input type="text" name="contact-name" id="contactName" required minlength="3" class="field valid" value="">
+        </p>
+
+        <p>
+            <label for="contactEmail">Seu e-mail:</label>
+            <input type="email" name="contact-email" id="contactEmail" required class="field valid" value="">
+        </p>
+
+        <p>
+            <label for="contactSubject">Assunto:</label>
+            <input type="text" name="contact-subject" id="contactSubject" required minlength="3" class="field valid" value="">
+        </p>
+
+        <p>
+            <label for="contactMessage">Mensagem:</label>
+            <textarea name="contact-message" id="contactMessage" required minlength="5" class="field valid"></textarea>
+        </p>
+
+        <p>
+            <button type="submit" name="contact-send" id="contactSend">Enviar</button>
+            <span class="small">&larr; Clique somente uma vez.</span>
+        </p>
+
+    </form>
+
+    <div id="feedback"></div>
+
+</article>
+
+<aside>
+    <h3>Sidebar</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores veniam dolorum, excepturi in, consequuntur deleniti fugiat magnam ratione id explicabo minima non qui repellendus voluptate incidunt ipsam harum? Repellat, nam!</p>
+</aside>

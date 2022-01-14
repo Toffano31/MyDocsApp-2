@@ -1,3 +1,4 @@
+
 // Define a página de reload
 setPage('contacts');
 
