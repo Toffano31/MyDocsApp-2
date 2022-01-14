@@ -38,15 +38,48 @@
 #contact button {
     background: linear-gradient(rgb(135, 182, 221), rgb(28, 67, 98));
     color: white;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 #contact button:hover {
     background: linear-gradient(rgb(251, 151, 114), rgb(163, 44, 0));
 }
 
-#contact button:disabled {
-    background: linear-gradient(rgb(17rgb(95, 95, 95)73, 173), grey);
-    color: rgb(180, 180, 180);
-    cursor: ;
+#contact input:invalid, #contact textarea:invalid {
+    background: rgb(255, 207, 207);
+    border-bottom: 3px solid red;
+}
+
+#contact input:valid, #contact textarea:valid {
+    background: rgb(233, 239, 255);
+    border-bottom: 3px solid green;
+}
+
+#contact:invalid button {
+    background: linear-gradient(rgb(179, 179, 179), rgb(93, 93, 93));
+    color: rgb(219, 219, 219);
+    cursor: not-allowed;
+}
+
+/* Barra lateral */
+
+aside.contacts div {
+    display: flex;
+    flex-direction: column;
+    line-height: 2.5;
+    margin-left: 1rem;
+    padding-bottom: 1rem;
+}
+
+aside.contacts a {
+    display: flex;
+    align-items: center;
+}
+
+aside.contacts a:hover {
+    text-decoration: none;
+}
+
+aside.contacts i {
+    font-size: 2rem;
 }

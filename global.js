@@ -1,7 +1,7 @@
 /** global.js
  * 
  * Este é o JavaScript principal do aplicativo. 
- * Todo o controle doaplicativo é realizado por este arquivo.
+ * Todo o controle do aplicativo é realizado por este arquivo.
  * 
  * Por Luferat --> http://github.com/Luferat 
  */
@@ -11,7 +11,7 @@
  * aplicativo de forma mais dinâmica. Você pode implementar novas informações,
  * ampliando 'config'.
  */
-var config = {
+ var config = {
     
     // Largura mínima em pixels para troca do modo responsivo de small para middle.
     clientWidth: 768,
@@ -24,6 +24,9 @@ var config = {
 
     // Separador usado na tag <title>...</title>.
     separator: '.:.',
+
+    // Define o logotipo do site
+    appLogo: 'assets/img/logo_64.png'
 }
 
 /**
@@ -64,6 +67,16 @@ var links = els('a');
 for (var i = 0; i < links.length; i++) {
     links[i].onclick = routerLink;
 }
+
+/**
+ * Define o logotipo conforme 'config'
+ */
+el('#logo').setAttribute('src', config.appLogo);
+
+/**
+ * Define o título do site.
+ */
+el('#siteName').innerHTML = config.appName;
 
 /*******************************
  * Funções Específicas do tema *
@@ -137,7 +150,7 @@ function changeRes() {
 }
 
 /**
- * Processa clique no link.
+ * Processa clique no link, ou seja, em qualquer tag '<a>...</a>'.
  *   Referências:
  *     https://www.w3schools.com/jsref/dom_obj_event.asp
  */
@@ -161,7 +174,7 @@ function routerLink(event) {
 
     /** 
      * Se href é um link externo ('http://', 'https://'), uma âncora ('#')
-     * ou target='_blank', devolve o controle para o HTML.
+     * ou neste, target='_blank', devolve o controle para o HTML.
      */
     if (
         target === '_blank' ||
@@ -309,4 +322,37 @@ function setTitle(pageTitle = '') {
  */
 function setPage(pageName) {
     localStorage.setItem('path', pageName);
+}
+
+// Gera a data atual em formato system date "YYYY-MM-DD HH:II:SS"
+function getSystemDate() {
+    var yourDate = new Date(); // Obtém a data atual do navegador
+    var offset = yourDate.getTimezoneOffset(); // Obtém o fusohorário
+    yourDate = new Date(yourDate.getTime() - offset * 60 * 1000); // Ajusta o fusohorário
+    returnDate = yourDate.toISOString().split("T"); // Separa data da hora
+    returnTime = returnDate[1].split("."); // Separa partes da data
+    return `${returnDate[0]} ${returnTime[0]}`; // Formata data como system date
+}
+
+// Formata uma 'system date' (YYYY-MM-DD HH:II:SS) para 'Br date' (DD/MM/YYYY HH:II:SS)
+function getBrDate(dateString, separator = ' às ') {
+    var p1 = dateString.split(" "); // Separa data e hora
+    var p2 = p1[0].split("-"); // Separa partes da data
+    return `${p2[2]}/${p2[1]}/${p2[0]}${separator}${p1[1]}`; // Remonta partes da data e hora
+}
+
+/**
+ * Sanitiza a string, removendo caracteres perigosos, espaços desnecessários, etc...
+ * Por padrão (stripTags = true), remove tags HTML e scripts.
+ */
+function sanitizeString(stringValue, stripTags = true) {
+    
+    // Remover todas as tags HTML
+    if (stripTags) stringValue = stringValue.replace(/<[^>]*>?/gm,'');
+
+    // Quebras de linha viram '<br>' e remove espaçis extras
+    stringValue = stringValue.replace(/\n/g, '<br>').trim();
+
+    // Remove espaços antes e depois, se existir
+    return stringValue.trim();
 }
