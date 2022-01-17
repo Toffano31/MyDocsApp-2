@@ -1,37 +1,44 @@
-/** global.js
+/** ./global.js
  * 
  * Este é o JavaScript principal do aplicativo. 
- * Todo o controle doaplicativo é realizado por este arquivo.
+ * Todo o controle do aplicativo é realizado por este arquivo.
  * 
- * Por Luferat --> http://github.com/Luferat 
+ * By Luferat -   - http://github.com/Luferat 
+ * MIT License - https://opensource.org/licenses/MIT
  */
 
 /**
  * Aqui vamos fazer algumas predefinições importantes para o funcionamento do
  * aplicativo de forma mais dinâmica. Você pode implementar novas informações,
  * ampliando 'config'.
+ * 
+ * No futuro, essas informações serão armazenadas e obtidas do banco de dados.
  */
  var config = {
-    
-    // Largura mínima em pixels para troca do modo responsivo de small para middle.
+
+    // Largura mínima em pixels para troca do modo responsivo - small / middle.
     clientWidth: 768,
 
     // Nome do aplicativo que será usado na tag <title>...</title>.
+    // Também pode ser usado em outras seções como no <header>...</header>.
     appName: 'My.Docs.App',
 
-    // Slogan do aplicativo.
+    // Slogan do aplicativo que será usado na tag <title>...</title>.
     appSlogan: 'Seus documentos em nossas mãos.',
 
-    // Separador usado na tag <title>...</title>.
+    // Separador que será usado na tag <title>...</title>.
     separator: '.:.',
 
-    // Define o logotipo do site
-    logo: 'assets/img/logo_64.png'
+    // Logotipo do site.
+    appLogo: 'assets/img/logo_64.png',
+
+    // URL da API REST (back-end). Não esqueça da "/" no final. 
+    apiURL: 'http://localhost:3300/'
 }
 
 /**
  * Obtém nome da página que está sendo acessada, do 'localStorage'.
- * Estude '404.html' para mais detalhes.
+ * Estude './404.html' para mais detalhes.
  */
 let path = localStorage.getItem('path');
 
@@ -71,7 +78,7 @@ for (var i = 0; i < links.length; i++) {
 /**
  * Define o logotipo conforme 'config'
  */
-el('#logo').setAttribute('src', config.logo);
+el('#logo').setAttribute('src', config.appLogo);
 
 /**
  * Define o título do site.
@@ -140,7 +147,7 @@ function hideMenu() {
 function changeRes() {
 
     // Se a resolução é maior que 767 pixels, sempre mostra o menu.
-    if (document.documentElement.clientWidth > config.clientWidth -1) showMenu();
+    if (document.documentElement.clientWidth > config.clientWidth - 1) showMenu();
 
     // Se a resolução é menor, sempre oculta o menu.
     else hideMenu();
@@ -150,7 +157,7 @@ function changeRes() {
 }
 
 /**
- * Processa clique no link.
+ * Processa clique no link, ou seja, em qualquer tag '<a>...</a>'.
  *   Referências:
  *     https://www.w3schools.com/jsref/dom_obj_event.asp
  */
@@ -174,7 +181,7 @@ function routerLink(event) {
 
     /** 
      * Se href é um link externo ('http://', 'https://'), uma âncora ('#')
-     * ou target='_blank', devolve o controle para o HTML.
+     * ou neste, target='_blank', devolve o controle para o HTML.
      */
     if (
         target === '_blank' ||
@@ -322,4 +329,37 @@ function setTitle(pageTitle = '') {
  */
 function setPage(pageName) {
     localStorage.setItem('path', pageName);
+}
+
+// Gera a data atual em formato system date "YYYY-MM-DD HH:II:SS"
+function getSystemDate() {
+    var yourDate = new Date(); // Obtém a data atual do navegador
+    var offset = yourDate.getTimezoneOffset(); // Obtém o fusohorário
+    yourDate = new Date(yourDate.getTime() - offset * 60 * 1000); // Ajusta o fusohorário
+    returnDate = yourDate.toISOString().split("T"); // Separa data da hora
+    returnTime = returnDate[1].split("."); // Separa partes da data
+    return `${returnDate[0]} ${returnTime[0]}`; // Formata data como system date
+}
+
+// Formata uma 'system date' (YYYY-MM-DD HH:II:SS) para 'Br date' (DD/MM/YYYY HH:II:SS)
+function getBrDate(dateString, separator = ' às ') {
+    var p1 = dateString.split(" "); // Separa data e hora
+    var p2 = p1[0].split("-"); // Separa partes da data
+    return `${p2[2]}/${p2[1]}/${p2[0]}${separator}${p1[1]}`; // Remonta partes da data e hora
+}
+
+/**
+ * Sanitiza a string, removendo caracteres perigosos, espaços desnecessários, etc...
+ * Por padrão (stripTags = true), remove tags HTML e scripts.
+ */
+function sanitizeString(stringValue, stripTags = true) {
+
+    // Remover todas as tags HTML
+    if (stripTags) stringValue = stringValue.replace(/<[^>]*>?/gm, '');
+
+    // Quebras de linha viram '<br>' e remove espaçis extras
+    stringValue = stringValue.replace(/\n/g, '<br>').trim();
+
+    // Remove espaços antes e depois, se existir
+    return stringValue.trim();
 }

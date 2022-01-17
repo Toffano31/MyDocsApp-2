@@ -11,7 +11,7 @@
  * aplicativo de forma mais dinâmica. Você pode implementar novas informações,
  * ampliando 'config'.
  */
- var config = {
+var config = {
     
     // Largura mínima em pixels para troca do modo responsivo de small para middle.
     clientWidth: 768,
