@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": ".vscode"
+		},
+		{
+			"path": "assets"
+		},
+		{
+			"path": "css"
+		},
+		{
+			"path": "db"
+		},
+		{
+			"path": "js"
+		},
+		{
+			"path": "pages"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "pages",
+		"liveServer.settings.port": 5501
+	}
+}
