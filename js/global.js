@@ -60,7 +60,7 @@ function mainApp() {
     let path = localStorage.getItem('path');
 
     // Lista de redes sociais no rodapé.
-    getSocialList('footer');
+    getSocialList('.social');
 
     // Se cliente acessou uma página específica...
     if (path) {
@@ -392,34 +392,63 @@ function sanitizeString(stringValue, stripTags = true) {
 
 /**
  * Obtém uma lista das redes sociais do aplicativo via API. * 
- *   'local' define onde a lista será exibida. Exemplos:
- *     getSocialList('footer') --> Gera a lista no rodapé.
- *     getSocialList('aside') --> Gera a lista na aside.
+ *   'element' define onde a lista será exibida.
+ *   'fullList' se 'true', lista todos os contatos
+ *              se 'false', não lista os contatos com "nofooter": true
+ *
+ *    Por default, 'fullList' = 'true'
+ * 
+ *   Exemplos:
+ *     getSocialList('.social') --> Gera a lista no rodapé.
+ *     getSocialList('.contact-list', true); --> Gera a lista na aside.
  */
-function getSocialList(local) {
+function getSocialList(element, fullList = false) {
 
+    // View que exibe a lista.
     var socialList = '';
 
+    // Obtém a lista do servidor (API)
     fetch(apiURL + 'social')
         .then((socialData) => {
+
+            // Se deu certo...
             if (socialData.ok) {
+
+                // Obtém os dados e armazena em 'data'.
                 socialData.json().then((data) => {
 
+                    // Itera 'data'
                     for (let i = 0; i < data.length; i++) {
 
-                        if (local == 'footer' && !data[i].nofooter) {
+                        // Se é para exibir a lista completa...
+                        if (fullList) {
 
+                            // Monta a view.
                             socialList += `
-                            <a href="${data[i].href}" target="_blank" title="Meu ${data[i].name}">
-                                <i class="fab ${data[i].icon} fa-fw"></i><span>${data[i].name}</span>
-                            </a>                        
-                        `;
+                                <a href="${data[i].href}" target="_blank" title="Meu ${data[i].name}">
+                                    <i class="${data[i].icon}"></i><span>${data[i].name}</span>
+                                </a>                        
+                            `;
+
+                            // Se é para exibir so redes sociais...
+                        } else {
+
+                            // Descarta o que não é rede social ("nofooter": true)
+                            if (!data[i].nofooter) {
+
+                                // Monta a view.
+                                socialList += `
+                                    <a href="${data[i].href}" target="_blank" title="Meu ${data[i].name}">
+                                        <i class="${data[i].icon}"></i><span>${data[i].name}</span>
+                                    </a>                        
+                                `;
+                            }
                         }
                     }
 
-                    el('.social').innerHTML = socialList;
+                    // Exibe a view no elemento selecionado.
+                    el(element).innerHTML = socialList;
                 })
             }
         });
-
 }

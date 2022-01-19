@@ -18,9 +18,5 @@
 		{
 			"path": "pages"
 		}
-	],
-	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "pages",
-		"liveServer.settings.port": 5501
-	}
+	]
 }
