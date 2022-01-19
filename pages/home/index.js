@@ -1,13 +1,13 @@
-/** ./pages/about/index.js
+/** ./pages/home/index.js
  * 
- * Este JavaScript é de uso exclusivo da página/rota 'about'.
+ * Este JavaScript é de uso exclusivo da página/rota 'home'.
  * 
  * By Luferat - https://github.com/Luferat
  * MIT License - https://opensource.org/licenses/MIT
  */
 
 // Define a página de reload
-setPage('about');
+setPage('home');
 
-// Título da página
-setTitle('Sobre o app');
+// Título da página. Deixar em branco para usar o 'default'
+setTitle();
